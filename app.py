@@ -1,8 +1,8 @@
 import streamlit as st
 import requests
 
-# Replace with your ACTUAL FastAPI Render URL
-BACKEND_URL = "https://wiki-summary.onrender.com"  # ← CHANGE THIS
+# Use localhost for local development
+BACKEND_URL = "http://localhost:8000"
 
 st.title("📚 Wikipedia Summarizer")
 
@@ -13,14 +13,16 @@ if st.button("Get Summary") and query:
     try:
         response = requests.post(
             f"{BACKEND_URL}/summarize",
-            params={"query": query, "sentences": sentences}
+            params={"query": query, "sentences": sentences},
+            timeout=10
         )
-
+        
         if response.status_code == 200:
+            data = response.json()
             st.success("✅ Summary generated!")
-            st.write(response.json()["summary"])
+            st.write(data["summary"])
         else:
-            st.error(f"❌ Error: {response.json()}")
-
+            st.error(f"❌ Error: {response.status_code}")
+            
     except Exception as e:
         st.error(f"❌ Connection error: {str(e)}")
