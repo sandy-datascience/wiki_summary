@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 
 # Use localhost for local development
-BACKEND_URL = "http://localhost:8000"
+BACKEND_URL = "https://wiki-fastapi.onrender.com"
 
 st.title("📚 Wikipedia Summarizer")
 
