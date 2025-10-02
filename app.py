@@ -1,9 +1,8 @@
 import streamlit as st
 import requests
-import os
 
-# Get backend URL from environment or use local for development
-BACKEND_URL = os.getenv('BACKEND_URL', 'https://your-fastapi-service.onrender.com')
+# Replace with your ACTUAL FastAPI Render URL
+BACKEND_URL = "https://wiki-summary.onrender.com"  # ← CHANGE THIS
 
 st.title("📚 Wikipedia Summarizer")
 
@@ -21,8 +20,7 @@ if st.button("Get Summary") and query:
             st.success("✅ Summary generated!")
             st.write(response.json()["summary"])
         else:
-            st.error(f"❌ Error: {response.json().get('detail', 'Unknown error')}")
+            st.error(f"❌ Error: {response.json()}")
 
     except Exception as e:
         st.error(f"❌ Connection error: {str(e)}")
-
